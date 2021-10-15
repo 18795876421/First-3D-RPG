@@ -9,12 +9,12 @@ public class EnemyController : MonoBehaviour
 {
     private NavMeshAgent agent;
     private Animator animator;
+    private CharacterStates characterStates;
     private EnemyStates enemyStates;  //状态
 
     [Header("Basic Settings")]
     public bool isPatrol;  //不是巡逻就是站桩
     public float sightRadius;  //可视半径
-    public float attackCD; //攻击CD
     private GameObject attackTarget;  //攻击目标
     private float baseSpeed;  //移动速度
 
@@ -29,7 +29,6 @@ public class EnemyController : MonoBehaviour
     bool isWalk;  //走路
     bool isChase;  //追击
     bool isFollow;  //跟随
-    bool isAttack;  //攻击
 
     private float lastAttactTime;  //最后攻击时间
 
@@ -37,9 +36,10 @@ public class EnemyController : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        characterStates = GetComponent<CharacterStates>();
         baseSpeed = agent.speed;
         basePosition = transform.position;  //获取原始位置
-        lastAttactTime = attackCD;
+        lastAttactTime = 0;
         lastPatrolTime = 0;
     }
 
@@ -77,7 +77,7 @@ public class EnemyController : MonoBehaviour
         animator.SetBool("Walk", isWalk);
         animator.SetBool("Chase", isChase);
         animator.SetBool("Follow", isFollow);
-        animator.SetBool("Attack", isAttack);
+        animator.SetBool("Critical", characterStates.isCritical);
     }
 
     private void SwitchStates()
@@ -134,19 +134,17 @@ public class EnemyController : MonoBehaviour
                 isChase = true;  //开始追击
                 agent.speed = baseSpeed;  //移动速度复原
                 agent.destination = attackTarget.transform.position;  //追击攻击目标
-                //是否到达攻击目标位置
-                if (Vector3.Distance(transform.position, attackTarget.transform.position) <= agent.stoppingDistance)
+                //是否进入攻击范围
+                if (Vector3.Distance(transform.position, attackTarget.transform.position) <= characterStates.attackData.attackRange)
                 {
                     isFollow = true;
-                    //攻击动画
+                    //攻击CD
                     if (lastAttactTime < 0)
                     {
-                        isAttack = true;
-                        lastAttactTime = attackCD;
-                    }
-                    else
-                    {
-                        isAttack = false;
+                        lastAttactTime = characterStates.attackData.coolDown;  //重置攻击CD
+                        characterStates.isCritical = Random.value <= characterStates.attackData.criticalChance;  //暴击判断
+                        transform.LookAt(attackTarget.transform);  //面朝攻击目标
+                        animator.SetTrigger("Attack");
                     }
                 }
                 else
