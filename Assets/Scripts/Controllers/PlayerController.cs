@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     private NavMeshAgent agent;
     private Animator animator;
     private CharacterStates characterStates;
-    private GameObject attactTarget;  //攻击目标
+    private GameObject attackTarget;  //攻击目标
     private float lastAttactTime;  //最后攻击时间
 
     private void Awake()
@@ -51,20 +51,20 @@ public class PlayerController : MonoBehaviour
     {
         if (target != null)
         {
-            attactTarget = target;
-            StartCoroutine(MoveToAttactTarget());
+            attackTarget = target;
             characterStates.isCritical = UnityEngine.Random.value <= characterStates.attackData.criticalChance;  //暴击判断
+            StartCoroutine(MoveToAttactTarget());
         }
     }
 
     IEnumerator MoveToAttactTarget()
     {
         agent.isStopped = false;  //可以移动
-        transform.LookAt(attactTarget.transform);
+        transform.LookAt(attackTarget.transform);
         //攻击范围判断
-        while (Vector3.Distance(attactTarget.transform.position, transform.position) > characterStates.attackData.attackRange)
+        while (Vector3.Distance(attackTarget.transform.position, transform.position) > characterStates.attackData.attackRange)
         {
-            agent.destination = attactTarget.transform.position;
+            agent.destination = attackTarget.transform.position;
             yield return null;
         }
         agent.isStopped = true;  //停止移动
@@ -76,5 +76,12 @@ public class PlayerController : MonoBehaviour
             //重置攻击冷却时间
             lastAttactTime = characterStates.attackData.coolDown;
         }
+    }
+
+    //Animation Event
+    void Hit()
+    {
+        var targetStates = attackTarget.GetComponent<CharacterStates>();
+        targetStates.TakeDamage(characterStates, targetStates);
     }
 }

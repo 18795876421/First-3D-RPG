@@ -11,6 +11,7 @@ public class EnemyController : MonoBehaviour
     private Animator animator;
     private CharacterStates characterStates;
     private EnemyStates enemyStates;  //状态
+    private EnemyStates baseStates;  //基础状态
 
     [Header("Basic Settings")]
     public bool isPatrol;  //不是巡逻就是站桩
@@ -48,12 +49,12 @@ public class EnemyController : MonoBehaviour
         //判断敌人类型, 巡逻还是站桩
         if (isPatrol)
         {
-            enemyStates = EnemyStates.PATROL;
+            baseStates = EnemyStates.PATROL;
             GetNewWayPoint();  //获取初始巡逻点
         }
         else
         {
-            enemyStates = EnemyStates.GUARD;
+            baseStates = EnemyStates.GUARD;
         }
     }
 
@@ -88,18 +89,9 @@ public class EnemyController : MonoBehaviour
             enemyStates = EnemyStates.CHASE;
         }
         //脱战, 返回追击前的状态
-        //TODO:优化返回追击前状态方式
         else
         {
-            //判断敌人类型, 巡逻还是站桩
-            if (isPatrol)
-            {
-                enemyStates = EnemyStates.PATROL;
-            }
-            else
-            {
-                enemyStates = EnemyStates.GUARD;
-            }
+            enemyStates = baseStates;
         }
 
         switch (enemyStates)
@@ -185,5 +177,15 @@ public class EnemyController : MonoBehaviour
         Vector3 randomPoint = new Vector3(basePosition.x + randomX, basePosition.y, basePosition.z + randomZ);
         //随机巡逻点的 Areas 应该为 walkable
         randomPatrolPoint = NavMesh.SamplePosition(randomPatrolPoint, out hit, 1f, 1) ? randomPoint : transform.position;
+    }
+
+    //Animation Event
+    void Hit()
+    {
+        if (attackTarget != null)
+        {
+            var targetStates = attackTarget.GetComponent<CharacterStates>();
+            targetStates.TakeDamage(characterStates, targetStates);
+        }
     }
 }
