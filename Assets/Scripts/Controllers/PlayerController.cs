@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
     private void SwitchAnimation()
     {
         animator.SetFloat("Speed", agent.velocity.sqrMagnitude);
+        animator.SetBool("Dead", characterStates.isDead);
     }
 
     //攻击事件

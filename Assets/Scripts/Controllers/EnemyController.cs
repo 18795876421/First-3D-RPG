@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
 {
     private NavMeshAgent agent;
     private Animator animator;
+    private Collider collider;
     private CharacterStates characterStates;
     private EnemyStates enemyStates;  //状态
     private EnemyStates baseStates;  //基础状态
@@ -25,6 +26,7 @@ public class EnemyController : MonoBehaviour
     private Vector3 randomPatrolPoint; //随机巡逻点
     public float patrolInterval;  //原始巡逻间隔
     private float lastPatrolTime;  //最新巡逻时间
+    private Quaternion baseRotation; //原始朝向
 
     //动画
     bool isWalk;  //走路
@@ -37,9 +39,11 @@ public class EnemyController : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        collider = GetComponent<Collider>();
         characterStates = GetComponent<CharacterStates>();
         baseSpeed = agent.speed;
         basePosition = transform.position;  //获取原始位置
+        baseRotation = transform.rotation;  //获取原始朝向
         lastAttactTime = 0;
         lastPatrolTime = 0;
     }
@@ -79,28 +83,45 @@ public class EnemyController : MonoBehaviour
         animator.SetBool("Chase", isChase);
         animator.SetBool("Follow", isFollow);
         animator.SetBool("Critical", characterStates.isCritical);
+        animator.SetBool("Dead", characterStates.isDead);
     }
 
     private void SwitchStates()
     {
+        //判断是否死亡
+        if (characterStates.isDead)
+        {
+            enemyStates = EnemyStates.DEAD;
+        }
         //发现 Player 切换到 CHASE 状态
-        if (FoundPlayer())
+        else if (FoundPlayer())
         {
             enemyStates = EnemyStates.CHASE;
+            isChase = true;  //开始追击
         }
         //脱战, 返回追击前的状态
         else
         {
             enemyStates = baseStates;
+            isChase = false;  //退出追击
         }
 
         switch (enemyStates)
         {
             case EnemyStates.GUARD:
+                if (Vector3.Distance(transform.position, basePosition) > agent.stoppingDistance)
+                {
+                    isWalk = true;
+                    agent.destination = basePosition;  //回到最初位置
+                }
+                else
+                {
+                    isWalk = false;
+                    transform.rotation = Quaternion.Lerp(transform.rotation, baseRotation, 0.01f);  //缓慢复原朝向
+                }
                 break;
             case EnemyStates.PATROL:
-                isChase = false;  //退出追击
-                // agent.destination = transform.position;  //停止移动
+                agent.destination = transform.position;  //停止移动
                 agent.speed = baseSpeed * 0.5f;  //移动速度减半
                 //判断是否到达巡逻点
                 if (Vector3.Distance(transform.position, randomPatrolPoint) <= agent.stoppingDistance)
@@ -109,6 +130,7 @@ public class EnemyController : MonoBehaviour
                     //巡逻间隔
                     if (lastPatrolTime > patrolInterval)
                     {
+                        lastPatrolTime = 0;  //重置巡逻间隔
                         GetNewWayPoint();  //获取新的巡逻点
                     }
                     else
@@ -123,7 +145,6 @@ public class EnemyController : MonoBehaviour
                 }
                 break;
             case EnemyStates.CHASE:
-                isChase = true;  //开始追击
                 agent.speed = baseSpeed;  //移动速度复原
                 agent.destination = attackTarget.transform.position;  //追击攻击目标
                 //是否进入攻击范围
@@ -145,6 +166,9 @@ public class EnemyController : MonoBehaviour
                 }
                 break;
             case EnemyStates.DEAD:
+                collider.enabled = false;  //关闭碰撞体，防止死亡状态还可以被攻击
+                agent.enabled = false;  //关闭导航组件
+                Destroy(gameObject, 2f);
                 break;
         }
     }
@@ -168,12 +192,9 @@ public class EnemyController : MonoBehaviour
     //获取巡逻范围内的一个随机点
     private void GetNewWayPoint()
     {
-        lastPatrolTime = 0;  //重置巡逻间隔
-
         float randomX = Random.Range(-patrolRadius, patrolRadius);
         float randomZ = Random.Range(-patrolRadius, patrolRadius);
         NavMeshHit hit;
-
         Vector3 randomPoint = new Vector3(basePosition.x + randomX, basePosition.y, basePosition.z + randomZ);
         //随机巡逻点的 Areas 应该为 walkable
         randomPatrolPoint = NavMesh.SamplePosition(randomPatrolPoint, out hit, 1f, 1) ? randomPoint : transform.position;

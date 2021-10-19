@@ -6,8 +6,8 @@ public class CharacterStates : MonoBehaviour
 {
     public CharacterData_SO characterData;  //人物数据
     public AttackData_SO attackData;  //攻击数据
-    [HideInInspector]
     public bool isCritical;  //暴击
+    public bool isDead;  //死亡
 
     #region Read from Data_SO
 
@@ -43,8 +43,20 @@ public class CharacterStates : MonoBehaviour
     {
         int damage = Mathf.Max(attacker.CurrentDamage() - defener.CurretnDefence, 1);
         CurrentHealth = Mathf.Max(CurrentHealth - damage, 0);
+        if (attacker.isCritical)
+        {
+            defener.GetComponent<Animator>().SetTrigger("Hit");
+        }
         //TODO:更新UI
-        //TODO:判断死亡
+        //判断死亡
+        if (CurrentHealth == 0)
+        {
+            isDead = true;
+        }
+        else
+        {
+            isDead = false;
+        }
         //TODO:经验值
     }
 
@@ -55,7 +67,6 @@ public class CharacterStates : MonoBehaviour
         {
             coreDamage *= (int)attackData.criticalMultiplier;
         }
-        Debug.Log("coreDamage: " + coreDamage);
         return coreDamage;
     }
 
