@@ -31,6 +31,10 @@ public class PlayerController : MonoBehaviour
     {
         SwitchAnimation();
         lastAttactTime -= Time.deltaTime;
+        if (characterStates.isDead)
+        {
+            GameManager.Instance.NotifyObservers();
+        }
     }
 
     //移动到鼠标点击位置

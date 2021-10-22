@@ -22,7 +22,6 @@ public class MouseManager : Singleton<MouseManager>
         MouseControl();
     }
 
-
     //设置鼠标图片
     void SetCursorTextrue()
     {

@@ -5,11 +5,11 @@ using UnityEngine.AI;
 
 public enum EnemyStates { GUARD, PATROL, CHASE, DEAD }
 [RequireComponent(typeof(NavMeshAgent))]
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, IEndGameObserver
 {
     private NavMeshAgent agent;
     private Animator animator;
-    private Collider collider;
+    private new Collider collider;
     private CharacterStates characterStates;
     private EnemyStates enemyStates;  //状态
     private EnemyStates baseStates;  //基础状态
@@ -62,11 +62,24 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        GameManager.Instance.AddObserver(this);
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.RemoveObserver(this);
+    }
+
     private void Update()
     {
-        SwitchStates();
-        SwitchAnimation();
-        lastAttactTime -= Time.deltaTime;
+        if (!characterStates.isDead)
+        {
+            SwitchStates();
+            SwitchAnimation();
+            lastAttactTime -= Time.deltaTime;
+        }
     }
 
     private void OnDrawGizmosSelected()
@@ -208,5 +221,11 @@ public class EnemyController : MonoBehaviour
             var targetStates = attackTarget.GetComponent<CharacterStates>();
             targetStates.TakeDamage(characterStates, targetStates);
         }
+    }
+
+    public void EndNotify()
+    {
+        //胜利动画
+        animator.SetBool("Win", true);
     }
 }
