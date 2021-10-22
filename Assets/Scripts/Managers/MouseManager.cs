@@ -4,20 +4,16 @@ using UnityEngine;
 using UnityEngine.Events;
 using System;
 
-public class MouseManage : MonoBehaviour
+public class MouseManager : Singleton<MouseManager>
 {
-    public static MouseManage Instance;  //MouseManage 单例模式实例
     RaycastHit hitInfo;  //射线碰撞信息
     public event Action<Vector3> OnMouseClicked;  //鼠标点击事件
     public event Action<GameObject> OnEnemyClicked;  //点击敌人
     public Texture2D Arrow, Attack, Doorway, Point;  //鼠标贴图
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (Instance != null)
-            Destroy(gameObject);
-
-        Instance = this;
+        base.Awake();
     }
 
     private void Update()

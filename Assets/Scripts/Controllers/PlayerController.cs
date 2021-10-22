@@ -22,8 +22,9 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         //在 OnMouseClicked 事件中注册 方法
-        MouseManage.Instance.OnMouseClicked += MoveToTarget;
-        MouseManage.Instance.OnEnemyClicked += EventAttact;
+        MouseManager.Instance.OnMouseClicked += MoveToTarget;
+        MouseManager.Instance.OnEnemyClicked += EventAttact;
+        GameManager.Instance.RigisterPlayer(characterStates);
     }
 
     private void Update()
