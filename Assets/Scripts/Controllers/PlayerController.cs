@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private CharacterStates characterStates;
     private GameObject attackTarget;  //攻击目标
     private float lastAttactTime;  //最后攻击时间
+    private bool isDead;  //死亡
 
     private void Awake()
     {
@@ -31,7 +32,8 @@ public class PlayerController : MonoBehaviour
     {
         SwitchAnimation();
         lastAttactTime -= Time.deltaTime;
-        if (characterStates.isDead)
+        isDead = characterStates.CurrentHealth == 0;
+        if (isDead)
         {
             GameManager.Instance.NotifyObservers();
         }
@@ -41,6 +43,7 @@ public class PlayerController : MonoBehaviour
     private void MoveToTarget(Vector3 target)
     {
         StopAllCoroutines();
+        if (isDead) return;
         agent.isStopped = false;  //重置agent为可移动 
         agent.destination = target;
     }
@@ -49,12 +52,13 @@ public class PlayerController : MonoBehaviour
     private void SwitchAnimation()
     {
         animator.SetFloat("Speed", agent.velocity.sqrMagnitude);
-        animator.SetBool("Dead", characterStates.isDead);
+        animator.SetBool("Dead", isDead);
     }
 
     //攻击事件
     private void EventAttact(GameObject target)
     {
+        if (isDead) return;
         if (target != null)
         {
             attackTarget = target;

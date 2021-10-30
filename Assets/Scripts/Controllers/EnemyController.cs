@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public enum EnemyStates { GUARD, PATROL, CHASE, DEAD }
 [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(CharacterStates))]
 public class EnemyController : MonoBehaviour, IEndGameObserver
 {
     private NavMeshAgent agent;
@@ -13,6 +14,7 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
     private CharacterStates characterStates;
     private EnemyStates enemyStates;  //状态
     private EnemyStates baseStates;  //基础状态
+    private bool isDead;  //是否死亡
 
     [Header("Basic Settings")]
     public bool isPatrol;  //不是巡逻就是站桩
@@ -60,26 +62,31 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
         {
             baseStates = EnemyStates.GUARD;
         }
-    }
-
-    private void OnEnable()
-    {
+        //FIXME:场景切换后修改
         GameManager.Instance.AddObserver(this);
     }
 
+    //切换场景时启用
+    /*     private void OnEnable()
+        {
+            GameManager.Instance.AddObserver(this);
+        }
+     */
     private void OnDisable()
     {
+        if (!GameManager.IsInitialized) return;
         GameManager.Instance.RemoveObserver(this);
     }
 
     private void Update()
     {
-        if (!characterStates.isDead)
+        if (!animator.GetBool("Win"))
         {
             SwitchStates();
             SwitchAnimation();
             lastAttactTime -= Time.deltaTime;
         }
+        isDead = characterStates.CurrentHealth == 0;
     }
 
     private void OnDrawGizmosSelected()
@@ -96,13 +103,13 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
         animator.SetBool("Chase", isChase);
         animator.SetBool("Follow", isFollow);
         animator.SetBool("Critical", characterStates.isCritical);
-        animator.SetBool("Dead", characterStates.isDead);
+        animator.SetBool("Dead", isDead);
     }
 
     private void SwitchStates()
     {
         //判断是否死亡
-        if (characterStates.isDead)
+        if (isDead)
         {
             enemyStates = EnemyStates.DEAD;
         }
@@ -225,6 +232,7 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
 
     public void EndNotify()
     {
+        agent.isStopped = true;
         //胜利动画
         animator.SetBool("Win", true);
     }

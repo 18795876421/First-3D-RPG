@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class CharacterStates : MonoBehaviour
 {
+    public CharacterData_SO templateData;  //模板数据
     public CharacterData_SO characterData;  //人物数据
     public AttackData_SO attackData;  //攻击数据
     public bool isCritical;  //暴击
-    public bool isDead;  //死亡
+
+    private void Awake()
+    {
+        if (templateData != null)
+            characterData = Instantiate(templateData);  //复制一个 templateData 给 characterData
+    }
 
     #region Read from Data_SO
 
@@ -49,14 +55,6 @@ public class CharacterStates : MonoBehaviour
         }
         //TODO:更新UI
         //判断死亡
-        if (CurrentHealth == 0)
-        {
-            isDead = true;
-        }
-        else
-        {
-            isDead = false;
-        }
         //TODO:经验值
     }
 
