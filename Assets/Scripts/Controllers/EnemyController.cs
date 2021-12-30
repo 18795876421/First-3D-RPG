@@ -19,7 +19,7 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
     [Header("Basic Settings")]
     public bool isPatrol;  //不是巡逻就是站桩
     public float sightRadius;  //可视半径
-    private GameObject attackTarget;  //攻击目标
+    protected GameObject attackTarget;  //攻击目标
     private float baseSpeed;  //移动速度
 
     [Header("Patrol State")]
@@ -36,6 +36,7 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
     bool isFollow;  //跟随
 
     private float lastAttactTime;  //最后攻击时间
+    private float lastSkillTime;  //最后放技能时间
 
     private void Awake()
     {
@@ -47,6 +48,7 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
         basePosition = transform.position;  //获取原始位置
         baseRotation = transform.rotation;  //获取原始朝向
         lastAttactTime = 0;
+        lastSkillTime = 0;
         lastPatrolTime = 0;
     }
 
@@ -85,6 +87,7 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
             SwitchStates();
             SwitchAnimation();
             lastAttactTime -= Time.deltaTime;
+            lastSkillTime -= Time.deltaTime;
         }
         isDead = characterStates.CurrentHealth == 0;
     }
@@ -125,7 +128,7 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
             enemyStates = baseStates;
             isChase = false;  //退出追击
         }
-
+        //切换状态
         switch (enemyStates)
         {
             case EnemyStates.GUARD:
@@ -167,27 +170,48 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
             case EnemyStates.CHASE:
                 agent.speed = baseSpeed;  //移动速度复原
                 agent.destination = attackTarget.transform.position;  //追击攻击目标
-                //是否进入攻击范围
-                if (Vector3.Distance(transform.position, attackTarget.transform.position) <= characterStates.attackData.attackRange)
+                //是否进入技能范围
+                if (Vector3.Distance(transform.position, attackTarget.transform.position) <= characterStates.attackData.skillRange)
                 {
                     isFollow = true;
-                    //攻击CD
-                    if (lastAttactTime < 0)
+                    //技能CD
+                    if (lastSkillTime < 0)
                     {
-                        lastAttactTime = characterStates.attackData.coolDown;  //重置攻击CD
-                        characterStates.isCritical = Random.value <= characterStates.attackData.criticalChance;  //暴击判断
+                        lastSkillTime = characterStates.attackData.skillCoolDown;  //重置技能CD
                         transform.LookAt(attackTarget.transform);  //面朝攻击目标
-                        animator.SetTrigger("Attack");
+                        animator.SetTrigger("Skill");
+                    }
+                    else
+                    {
+                        //是否进入攻击范围
+                        if (Vector3.Distance(transform.position, attackTarget.transform.position) <= characterStates.attackData.attackRange)
+                        {
+                            isFollow = true;
+                            //攻击CD
+                            if (lastAttactTime < 0)
+                            {
+                                lastAttactTime = characterStates.attackData.attackCoolDown;  //重置攻击CD
+                                characterStates.isCritical = Random.value <= characterStates.attackData.criticalChance;  //暴击判断
+                                transform.LookAt(attackTarget.transform);  //面朝攻击目标
+                                animator.SetTrigger("Attack");
+                            }
+                        }
+                        else
+                        {
+                            isFollow = false;
+                        }
                     }
                 }
                 else
                 {
                     isFollow = false;
                 }
+
                 break;
             case EnemyStates.DEAD:
                 collider.enabled = false;  //关闭碰撞体，防止死亡状态还可以被攻击
-                agent.enabled = false;  //关闭导航组件
+                // agent.enabled = false;  //关闭导航组件
+                agent.radius = 0; //导航范围设置为0
                 Destroy(gameObject, 2f);
                 break;
         }

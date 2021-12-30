@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Critical", characterStates.isCritical);
             animator.SetTrigger("Attact");
             //重置攻击冷却时间
-            lastAttactTime = characterStates.attackData.coolDown;
+            lastAttactTime = characterStates.attackData.attackCoolDown;
         }
     }
 

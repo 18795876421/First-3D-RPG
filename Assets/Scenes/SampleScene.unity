@@ -1546,7 +1546,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 151622939658216626, guid: 7cfef6e74c4832343b61b0c628f6f78e, type: 3}
       propertyPath: isPatrol
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 151622939658216626, guid: 7cfef6e74c4832343b61b0c628f6f78e, type: 3}
       propertyPath: patrolInterval
@@ -2328,7 +2328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9384ab8608cdc3d479fe89cd51eed48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BindingMode: 5
+  m_BindingMode: 0
   m_FollowOffset: {x: 0, y: 5, z: -10}
   m_XDamping: 1
   m_YDamping: 1
@@ -4022,7 +4022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9384ab8608cdc3d479fe89cd51eed48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BindingMode: 5
+  m_BindingMode: 0
   m_FollowOffset: {x: 0, y: 5, z: -10}
   m_XDamping: 1
   m_YDamping: 1
@@ -4953,7 +4953,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 812575709}
-  m_LocalRotation: {x: 0.20576492, y: 0.43297523, z: -0.10221159, w: 0.8716341}
+  m_LocalRotation: {x: 0.21878648, y: 0.29709563, z: -0.07013476, w: 0.92679435}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -12170,7 +12170,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 874003505}
-  m_LocalRotation: {x: 0.17396706, y: 0.43640232, z: -0.086416334, w: 0.8785333}
+  m_LocalRotation: {x: 0.18497634, y: 0.29944724, z: -0.05929651, w: 0.93413013}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -69819,8 +69819,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.18987629, y: 0.43476278, z: -0.09431909, w: 0.8752327}
-  m_LocalPosition: {x: 3.061449, y: 4.91, z: 3.1782951}
+  m_LocalRotation: {x: 0.20189239, y: 0.2983223, z: -0.06471914, w: 0.9306206}
+  m_LocalPosition: {x: 5.216178, y: 4.91, z: 1.0836945}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -72471,7 +72471,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh19578
+  m_Name: pb_Mesh19580
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -72899,7 +72899,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9384ab8608cdc3d479fe89cd51eed48f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BindingMode: 5
+  m_BindingMode: 0
   m_FollowOffset: {x: 0, y: 5, z: -10}
   m_XDamping: 1
   m_YDamping: 1
@@ -74119,7 +74119,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1762874270}
-  m_LocalRotation: {x: 0.18987629, y: 0.43476275, z: -0.09431907, w: 0.8752327}
+  m_LocalRotation: {x: 0.20189238, y: 0.29832223, z: -0.06471915, w: 0.9306207}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -74417,7 +74417,7 @@ MonoBehaviour:
     m_RecenteringTime: 2
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
-  m_BindingMode: 5
+  m_BindingMode: 0
   m_SplineCurvature: 0.2
   m_Orbits:
   - m_Height: 10
@@ -74439,7 +74439,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1804487016}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.061449, y: 4.91, z: 3.1782951}
+  m_LocalPosition: {x: 5.216178, y: 4.91, z: 1.0836945}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 812575711}
@@ -76241,26 +76241,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 0}
-      propertyPath: m_Height
-      value: 1.7532636
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Radius
-      value: 0.67124003
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Center.x
-      value: 0.17124009
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Center.y
-      value: 0.8766317
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Center.z
-      value: 0.0000000031929597
-      objectReference: {fileID: 0}
     - target: {fileID: 2750510196426325025, guid: 05172fc35225c8e40af4ff21501e9c84, type: 3}
       propertyPath: m_Name
       value: GruntPolyart

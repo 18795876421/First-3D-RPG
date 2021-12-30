@@ -9,13 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c29a2d7df7fe86e418409b904dfdedd7, type: 3}
-  m_Name: TurtleShell AttackData
+  m_Script: {fileID: 11500000, guid: 2170f4a42c517f746b7992d3360cd441, type: 3}
+  m_Name: Grunt
   m_EditorClassIdentifier: 
-  attackRange: 1
-  skillRange: 2
-  coolDown: 1
-  minDamage: 3
-  maxDamage: 5
-  criticalMultiplier: 2
-  criticalChance: 0.2
+  maxHealth: 55
+  currentHealth: 55
+  baseDefence: 4
+  currentDefence: 4

@@ -767,9 +767,12 @@ GameObject:
   - component: {fileID: 2750510196426325983}
   - component: {fileID: 2750510196426325024}
   - component: {fileID: 1390142153179933749}
+  - component: {fileID: 2750510195055910839}
+  - component: {fileID: 2750510195055910840}
+  - component: {fileID: 2750510195055910841}
   m_Layer: 0
   m_Name: GruntPolyart
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -781,7 +784,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2750510196426325025}
-  m_LocalRotation: {x: -0, y: 0.9888461, z: -0, w: 0.14894097}
+  m_LocalRotation: {x: 0, y: 0.98884624, z: 0, w: 0.14893997}
   m_LocalPosition: {x: 17.666466, y: 0.44053268, z: 24.620832}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -800,7 +803,7 @@ Animator:
   m_GameObject: {fileID: 2750510196426325025}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: eb5e3fc8d0caf3945a6effdb6372a9c7, type: 3}
-  m_Controller: {fileID: 9100000, guid: e58bf4525b7cc80459d6f7ff033ea067, type: 2}
+  m_Controller: {fileID: 9100000, guid: e37cf8b6c18c96548bcef327fe74fdb9, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -822,6 +825,61 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.4207282, y: 1.9044499, z: 1.4330997}
   m_Center: {x: -0.13704646, y: 0.95222497, z: 0.09452801}
+--- !u!114 &2750510195055910839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2750510196426325025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c1399ad09dda9648ab0ba6bd243753f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPatrol: 0
+  sightRadius: 6
+  patrolRadius: 10
+  patrolInterval: 2
+  kickForce: 15
+--- !u!114 &2750510195055910840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2750510196426325025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 179155a8d615ef640a59bcddd21681b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  templateData: {fileID: 11400000, guid: eea12e38f51ce124fb11b34330252666, type: 2}
+  characterData: {fileID: 0}
+  attackData: {fileID: 11400000, guid: 971e0c7c807a5f84d9d91691cc2a8693, type: 2}
+  isCritical: 0
+--- !u!195 &2750510195055910841
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2750510196426325025}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.6
+  m_Speed: 2.5
+  m_Acceleration: 80
+  avoidancePriority: 50
+  m_AngularSpeed: 500
+  m_StoppingDistance: 1
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &2750510196570848812
 GameObject:
   m_ObjectHideFlags: 0

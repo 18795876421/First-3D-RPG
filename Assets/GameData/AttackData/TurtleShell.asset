@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c29a2d7df7fe86e418409b904dfdedd7, type: 3}
-  m_Name: Slime AttackData
+  m_Name: TurtleShell
   m_EditorClassIdentifier: 
   attackRange: 1
-  skillRange: 0
-  coolDown: 1
-  minDamage: 2
-  maxDamage: 4
+  skillRange: 2
+  attackCoolDown: 2
+  skillCoolDown: 5
+  minDamage: 3
+  maxDamage: 5
   criticalMultiplier: 2
   criticalChance: 0.2
