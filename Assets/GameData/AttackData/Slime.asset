@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c29a2d7df7fe86e418409b904dfdedd7, type: 3}
   m_Name: Slime
   m_EditorClassIdentifier: 
-  attackRange: 1
+  attackRange: 2
   skillRange: 0
   attackCoolDown: 2
   skillCoolDown: 0

@@ -1488,14 +1488,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1758181622, guid: 7cfef6e74c4832343b61b0c628f6f78e, type: 3}
-      propertyPath: templateData
-      value: 
-      objectReference: {fileID: 11400000, guid: 642135938af6d7248ae15ed9bff81ae1, type: 2}
-    - target: {fileID: 1758181622, guid: 7cfef6e74c4832343b61b0c628f6f78e, type: 3}
-      propertyPath: characterData
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 147482676585840951, guid: 7cfef6e74c4832343b61b0c628f6f78e, type: 3}
       propertyPath: m_RootOrder
       value: 15
@@ -1543,14 +1535,6 @@ PrefabInstance:
     - target: {fileID: 151279394568220443, guid: 7cfef6e74c4832343b61b0c628f6f78e, type: 3}
       propertyPath: m_Name
       value: Slime (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 151622939658216626, guid: 7cfef6e74c4832343b61b0c628f6f78e, type: 3}
-      propertyPath: isPatrol
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 151622939658216626, guid: 7cfef6e74c4832343b61b0c628f6f78e, type: 3}
-      propertyPath: patrolInterval
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7cfef6e74c4832343b61b0c628f6f78e, type: 3}
@@ -76118,10 +76102,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 641220044552225355, guid: 64ce46b19d29a9946880f63b1400471f, type: 3}
-      propertyPath: m_Speed
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 1461705510651361619, guid: 64ce46b19d29a9946880f63b1400471f, type: 3}
       propertyPath: m_Name
       value: Player
@@ -76181,7 +76161,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 908249273459143829, guid: 6239975ff64db9e41919acb3c0acb2cc, type: 3}
       propertyPath: m_Name
-      value: Polyart_Golem
+      value: Golem
       objectReference: {fileID: 0}
     - target: {fileID: 908249273459143831, guid: 6239975ff64db9e41919acb3c0acb2cc, type: 3}
       propertyPath: m_RootOrder
@@ -76243,7 +76223,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2750510196426325025, guid: 05172fc35225c8e40af4ff21501e9c84, type: 3}
       propertyPath: m_Name
-      value: GruntPolyart
+      value: Grunt
       objectReference: {fileID: 0}
     - target: {fileID: 2750510196426325983, guid: 05172fc35225c8e40af4ff21501e9c84, type: 3}
       propertyPath: m_RootOrder

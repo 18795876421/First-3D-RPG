@@ -49,6 +49,7 @@ public class CharacterStates : MonoBehaviour
     {
         int damage = Mathf.Max(attacker.CurrentDamage() - defener.CurretnDefence, 1);
         CurrentHealth = Mathf.Max(CurrentHealth - damage, 0);
+        //判断暴击
         if (attacker.isCritical)
         {
             defener.GetComponent<Animator>().SetTrigger("Hit");

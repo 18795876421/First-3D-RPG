@@ -8,7 +8,7 @@ public class Grunt : EnemyController
     [Header("Skill")]
     public float kickForce = 10;
 
-    public void kickOff()
+    public void KickOff()
     {
         if (attackTarget != null)
         {

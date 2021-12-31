@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5cd4a03a2875e64a81fffa272a5b939, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPatrol: 1
+  isPatrol: 0
   sightRadius: 6
   patrolRadius: 8
   patrolInterval: 2
@@ -133,7 +133,7 @@ NavMeshAgent:
   m_AngularSpeed: 500
   m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 1
   m_BaseOffset: 0

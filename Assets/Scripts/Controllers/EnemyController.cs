@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
     private NavMeshAgent agent;
     private Animator animator;
     private new Collider collider;
-    private CharacterStates characterStates;
+    protected CharacterStates characterStates;
     private EnemyStates enemyStates;  //状态
     private EnemyStates baseStates;  //基础状态
     private bool isDead;  //是否死亡
@@ -131,6 +131,7 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
         //切换状态
         switch (enemyStates)
         {
+            //守卫状态
             case EnemyStates.GUARD:
                 if (Vector3.Distance(transform.position, basePosition) > agent.stoppingDistance)
                 {
@@ -143,6 +144,7 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
                     transform.rotation = Quaternion.Lerp(transform.rotation, baseRotation, 0.01f);  //缓慢复原朝向
                 }
                 break;
+            //巡逻状态
             case EnemyStates.PATROL:
                 agent.destination = transform.position;  //停止移动
                 agent.speed = baseSpeed * 0.5f;  //移动速度减半
@@ -167,47 +169,52 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
                     agent.destination = randomPatrolPoint;  //前往巡逻点
                 }
                 break;
+            //追击状态
             case EnemyStates.CHASE:
                 agent.speed = baseSpeed;  //移动速度复原
                 agent.destination = attackTarget.transform.position;  //追击攻击目标
+                Debug.Log("距离: " + Vector3.Distance(transform.position, attackTarget.transform.position));
                 //是否进入技能范围
                 if (Vector3.Distance(transform.position, attackTarget.transform.position) <= characterStates.attackData.skillRange)
                 {
                     isFollow = true;
+                    agent.isStopped = true;
                     //技能CD
                     if (lastSkillTime < 0)
                     {
                         lastSkillTime = characterStates.attackData.skillCoolDown;  //重置技能CD
                         transform.LookAt(attackTarget.transform);  //面朝攻击目标
+                        Debug.Log("放技能");
                         animator.SetTrigger("Skill");
-                    }
-                    else
-                    {
-                        //是否进入攻击范围
-                        if (Vector3.Distance(transform.position, attackTarget.transform.position) <= characterStates.attackData.attackRange)
-                        {
-                            isFollow = true;
-                            //攻击CD
-                            if (lastAttactTime < 0)
-                            {
-                                lastAttactTime = characterStates.attackData.attackCoolDown;  //重置攻击CD
-                                characterStates.isCritical = Random.value <= characterStates.attackData.criticalChance;  //暴击判断
-                                transform.LookAt(attackTarget.transform);  //面朝攻击目标
-                                animator.SetTrigger("Attack");
-                            }
-                        }
-                        else
-                        {
-                            isFollow = false;
-                        }
                     }
                 }
                 else
                 {
                     isFollow = false;
+                    agent.isStopped = false;
                 }
-
+                //是否进入攻击范围
+                if (Vector3.Distance(transform.position, attackTarget.transform.position) <= characterStates.attackData.attackRange)
+                {
+                    isFollow = true;
+                    agent.isStopped = true;
+                    //攻击CD
+                    if (lastAttactTime < 0)
+                    {
+                        lastAttactTime = characterStates.attackData.attackCoolDown;  //重置攻击CD
+                        characterStates.isCritical = Random.value <= characterStates.attackData.criticalChance;  //暴击判断
+                        transform.LookAt(attackTarget.transform);  //面朝攻击目标
+                        Debug.Log("普通攻击");
+                        animator.SetTrigger("Attack");
+                    }
+                }
+                else
+                {
+                    isFollow = false;
+                    agent.isStopped = false;
+                }
                 break;
+            //死亡状态
             case EnemyStates.DEAD:
                 collider.enabled = false;  //关闭碰撞体，防止死亡状态还可以被攻击
                 // agent.enabled = false;  //关闭导航组件
@@ -247,7 +254,8 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
     //Animation Event
     void Hit()
     {
-        if (attackTarget != null)
+        //目标不为空，且在正面120°之内才造成伤害
+        if (attackTarget != null && transform.IsFacingTarget(attackTarget.transform))
         {
             var targetStates = attackTarget.GetComponent<CharacterStates>();
             targetStates.TakeDamage(characterStates, targetStates);

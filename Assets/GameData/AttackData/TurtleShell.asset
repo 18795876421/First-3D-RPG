@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c29a2d7df7fe86e418409b904dfdedd7, type: 3}
   m_Name: TurtleShell
   m_EditorClassIdentifier: 
-  attackRange: 1
-  skillRange: 2
+  attackRange: 2
+  skillRange: 0
   attackCoolDown: 2
-  skillCoolDown: 5
+  skillCoolDown: 0
   minDamage: 3
   maxDamage: 5
   criticalMultiplier: 2

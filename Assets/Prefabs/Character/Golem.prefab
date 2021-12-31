@@ -641,9 +641,12 @@ GameObject:
   - component: {fileID: 908249273459143831}
   - component: {fileID: 908249273459143828}
   - component: {fileID: 1929527983418746997}
+  - component: {fileID: 171027191}
+  - component: {fileID: 171027192}
+  - component: {fileID: 171027193}
   m_Layer: 0
-  m_Name: Polyart_Golem
-  m_TagString: Untagged
+  m_Name: Golem
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -655,7 +658,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 908249273459143829}
-  m_LocalRotation: {x: -0, y: -0.99948627, z: -0, w: -0.03205295}
+  m_LocalRotation: {x: -0, y: -0.9994861, z: 0, w: -0.032056056}
   m_LocalPosition: {x: 30.232357, y: 0.20283413, z: 30.238197}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -674,7 +677,7 @@ Animator:
   m_GameObject: {fileID: 908249273459143829}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 0f2c5202b918687408ac5bc7429a03ea, type: 3}
-  m_Controller: {fileID: 9100000, guid: 64e2ef14a02f69a4b94edbee54ca296a, type: 2}
+  m_Controller: {fileID: 22100000, guid: 1ba4e39416b21954496e42d7d3fa6cca, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -696,6 +699,63 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.50847, y: 4.119033, z: 2.5319037}
   m_Center: {x: 0.10061454, y: 2.0595164, z: 0.24379563}
+--- !u!114 &171027191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908249273459143829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d2604a2e1bb67c48b459e7bb0aec685, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPatrol: 0
+  sightRadius: 10
+  patrolRadius: 0
+  patrolInterval: 0
+  kickForce: 25
+  prefabRock: {fileID: 5298590762127773683, guid: cad9f745870d9f448bf225d2a253d382, type: 3}
+  positionPalm: {fileID: 908249273203623921}
+--- !u!114 &171027192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908249273459143829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 179155a8d615ef640a59bcddd21681b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  templateData: {fileID: 11400000, guid: 77ada259c54fa7149aa20e8ce07eec1a, type: 2}
+  characterData: {fileID: 0}
+  attackData: {fileID: 11400000, guid: 09685aa253f83944f8ec16f83386d3b2, type: 2}
+  isCritical: 0
+--- !u!195 &171027193
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908249273459143829}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 1.4
+  m_Speed: 2
+  m_Acceleration: 50
+  avoidancePriority: 50
+  m_AngularSpeed: 500
+  m_StoppingDistance: 1
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 0
+  m_AutoRepath: 1
+  m_Height: 4
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &908249273487804220
 GameObject:
   m_ObjectHideFlags: 0

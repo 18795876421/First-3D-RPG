@@ -1697,7 +1697,7 @@ NavMeshAgent:
   m_AngularSpeed: 600
   m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 1.4
   m_BaseOffset: 0
@@ -1727,8 +1727,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 179155a8d615ef640a59bcddd21681b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  templateData: {fileID: 0}
   characterData: {fileID: 11400000, guid: 4f4d30766b770c94389cfbb287506c9f, type: 2}
   attackData: {fileID: 11400000, guid: 20d3f7f70965fc54fbcf83e61091b241, type: 2}
+  isCritical: 0
 --- !u!1 &1461705510651361621
 GameObject:
   m_ObjectHideFlags: 0
