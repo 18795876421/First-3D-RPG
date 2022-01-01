@@ -174,38 +174,38 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
                 agent.speed = baseSpeed;  //移动速度复原
                 agent.destination = attackTarget.transform.position;  //追击攻击目标
                 Debug.Log("距离: " + Vector3.Distance(transform.position, attackTarget.transform.position));
-                //是否进入技能范围
-                if (Vector3.Distance(transform.position, attackTarget.transform.position) <= characterStates.attackData.skillRange)
+                if (TargetInAttackRange() || TargetInSkillRange())
                 {
                     isFollow = true;
                     agent.isStopped = true;
-                    //技能CD
-                    if (lastSkillTime < 0)
+                    if (TargetInSkillRange())
                     {
-                        lastSkillTime = characterStates.attackData.skillCoolDown;  //重置技能CD
-                        transform.LookAt(attackTarget.transform);  //面朝攻击目标
-                        Debug.Log("放技能");
-                        animator.SetTrigger("Skill");
+                        Debug.Log("进入技能范围");
+                        isFollow = true;
+                        agent.isStopped = true;
+                        //技能CD
+                        if (lastSkillTime < 0)
+                        {
+                            lastSkillTime = characterStates.attackData.skillCoolDown;  //重置技能CD
+                            transform.LookAt(attackTarget.transform);  //面朝攻击目标
+                            Debug.Log("放技能");
+                            animator.SetTrigger("Skill");
+                        }
                     }
-                }
-                else
-                {
-                    isFollow = false;
-                    agent.isStopped = false;
-                }
-                //是否进入攻击范围
-                if (Vector3.Distance(transform.position, attackTarget.transform.position) <= characterStates.attackData.attackRange)
-                {
-                    isFollow = true;
-                    agent.isStopped = true;
-                    //攻击CD
-                    if (lastAttactTime < 0)
+                    if (TargetInAttackRange())
                     {
-                        lastAttactTime = characterStates.attackData.attackCoolDown;  //重置攻击CD
-                        characterStates.isCritical = Random.value <= characterStates.attackData.criticalChance;  //暴击判断
-                        transform.LookAt(attackTarget.transform);  //面朝攻击目标
-                        Debug.Log("普通攻击");
-                        animator.SetTrigger("Attack");
+                        Debug.Log("进入攻击范围");
+                        isFollow = true;
+                        agent.isStopped = true;
+                        //攻击CD
+                        if (lastAttactTime < 0)
+                        {
+                            lastAttactTime = characterStates.attackData.attackCoolDown;  //重置攻击CD
+                            characterStates.isCritical = Random.value <= characterStates.attackData.criticalChance;  //暴击判断
+                            transform.LookAt(attackTarget.transform);  //面朝攻击目标
+                            Debug.Log("普通攻击");
+                            animator.SetTrigger("Attack");
+                        }
                     }
                 }
                 else
@@ -238,6 +238,24 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
         }
         attackTarget = null;
         return false;
+    }
+
+    //检测是否进入攻击范围
+    private bool TargetInAttackRange()
+    {
+        if (attackTarget != null)
+            return Vector3.Distance(transform.position, attackTarget.transform.position) <= characterStates.attackData.attackRange;
+        else
+            return false;
+    }
+
+    //检测是否进入技能范围
+    private bool TargetInSkillRange()
+    {
+        if (attackTarget != null)
+            return Vector3.Distance(transform.position, attackTarget.transform.position) <= characterStates.attackData.skillRange;
+        else
+            return false;
     }
 
     //获取巡逻范围内的一个随机点
