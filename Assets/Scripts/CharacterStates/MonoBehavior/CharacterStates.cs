@@ -59,6 +59,12 @@ public class CharacterStates : MonoBehaviour
         //TODO:经验值
     }
 
+    public void TakeDamage(int damage, CharacterStates defener)
+    {
+        int currentDamage = Mathf.Max(damage - defener.CurretnDefence, 1);
+        CurrentHealth = Mathf.Max(CurrentHealth - currentDamage, 0);
+    }
+
     private int CurrentDamage()
     {
         int coreDamage = Random.Range(attackData.minDamage, attackData.maxDamage);

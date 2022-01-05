@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2170f4a42c517f746b7992d3360cd441, type: 3}
   m_Name: Grunt
   m_EditorClassIdentifier: 
-  maxHealth: 55
-  currentHealth: 55
+  maxHealth: 100
+  currentHealth: 100
   baseDefence: 4
   currentDefence: 4

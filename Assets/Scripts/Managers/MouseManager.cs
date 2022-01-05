@@ -38,6 +38,9 @@ public class MouseManager : Singleton<MouseManager>
                 case "Enemy":
                     Cursor.SetCursor(Attack, new Vector2(0, 0), CursorMode.Auto);
                     break;
+                case "Attackable":
+                    Cursor.SetCursor(Attack, new Vector2(0, 0), CursorMode.Auto);
+                    break;
             }
         }
     }
@@ -49,6 +52,8 @@ public class MouseManager : Singleton<MouseManager>
             if (hitInfo.collider.gameObject.CompareTag("Ground"))
                 OnMouseClicked?.Invoke(hitInfo.point);
             if (hitInfo.collider.gameObject.CompareTag("Enemy"))
+                OnEnemyClicked?.Invoke(hitInfo.collider.gameObject);
+            if (hitInfo.collider.gameObject.CompareTag("Attackable"))
                 OnEnemyClicked?.Invoke(hitInfo.collider.gameObject);
         }
     }

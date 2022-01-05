@@ -771,7 +771,7 @@ GameObject:
   - component: {fileID: 2750510195055910840}
   - component: {fileID: 2750510195055910841}
   m_Layer: 0
-  m_Name: GruntPolyart
+  m_Name: Grunt
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -841,7 +841,7 @@ MonoBehaviour:
   sightRadius: 6
   patrolRadius: 10
   patrolInterval: 2
-  kickForce: 15
+  kickForce: 10
 --- !u!114 &2750510195055910840
 MonoBehaviour:
   m_ObjectHideFlags: 0

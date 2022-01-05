@@ -96,7 +96,19 @@ public class PlayerController : MonoBehaviour
     //Animation Event
     void Hit()
     {
-        var targetStates = attackTarget.GetComponent<CharacterStates>();
-        targetStates.TakeDamage(characterStates, targetStates);
+        if (attackTarget.CompareTag("Attackable"))
+        {
+            if (attackTarget.GetComponent<Golem_Rock>() && attackTarget.GetComponent<Golem_Rock>().rockStates == Golem_Rock.RockStates.HitNothing)
+            {
+                attackTarget.GetComponent<Rigidbody>().velocity = Vector3.one;
+                attackTarget.GetComponent<Rigidbody>().AddForce(transform.forward * 20, ForceMode.Impulse);
+                attackTarget.GetComponent<Golem_Rock>().rockStates = Golem_Rock.RockStates.HitEnemy;
+            }
+        }
+        else
+        {
+            var targetStates = attackTarget.GetComponent<CharacterStates>();
+            targetStates.TakeDamage(characterStates, targetStates);
+        }
     }
 }

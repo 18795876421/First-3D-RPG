@@ -173,37 +173,28 @@ public class EnemyController : MonoBehaviour, IEndGameObserver
             case EnemyStates.CHASE:
                 agent.speed = baseSpeed;  //移动速度复原
                 agent.destination = attackTarget.transform.position;  //追击攻击目标
-                Debug.Log("距离: " + Vector3.Distance(transform.position, attackTarget.transform.position));
                 if (TargetInAttackRange() || TargetInSkillRange())
                 {
                     isFollow = true;
                     agent.isStopped = true;
                     if (TargetInSkillRange())
                     {
-                        Debug.Log("进入技能范围");
-                        isFollow = true;
-                        agent.isStopped = true;
                         //技能CD
                         if (lastSkillTime < 0)
                         {
                             lastSkillTime = characterStates.attackData.skillCoolDown;  //重置技能CD
                             transform.LookAt(attackTarget.transform);  //面朝攻击目标
-                            Debug.Log("放技能");
                             animator.SetTrigger("Skill");
                         }
                     }
                     if (TargetInAttackRange())
                     {
-                        Debug.Log("进入攻击范围");
-                        isFollow = true;
-                        agent.isStopped = true;
                         //攻击CD
                         if (lastAttactTime < 0)
                         {
                             lastAttactTime = characterStates.attackData.attackCoolDown;  //重置攻击CD
                             characterStates.isCritical = Random.value <= characterStates.attackData.criticalChance;  //暴击判断
                             transform.LookAt(attackTarget.transform);  //面朝攻击目标
-                            Debug.Log("普通攻击");
                             animator.SetTrigger("Attack");
                         }
                     }

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -1229880897347875682}
   m_Layer: 0
   m_Name: Golem_Rock
-  m_TagString: Untagged
+  m_TagString: Attackable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,5 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44e4bf7907894a945b7d3c9135beba4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  froce: 15
+  rockStates: 0
+  froce: 20
+  damage: 10
   target: {fileID: 0}
+  breakEffect: {fileID: 6073512393776487109, guid: 7de20ca56b3cd78459c9b8c6f04f35b0, type: 3}
