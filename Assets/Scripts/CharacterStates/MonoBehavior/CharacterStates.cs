@@ -56,10 +56,12 @@ public class CharacterStates : MonoBehaviour
         {
             defener.GetComponent<Animator>().SetTrigger("Hit");
         }
-        //TODO:更新UI
+        //更新UI
         UpdateHealthBarOnAttack?.Invoke(CurrentHealth, MaxHealth);
         //判断死亡
-        //TODO:经验值
+        //经验值
+        if (CurrentHealth <= 0)
+            attacker.characterData.UpdateExp(characterData.provideExp);
     }
 
     public void TakeDamage(int damage, CharacterStates defener)
@@ -67,6 +69,10 @@ public class CharacterStates : MonoBehaviour
         int currentDamage = Mathf.Max(damage - defener.CurretnDefence, 1);
         CurrentHealth = Mathf.Max(CurrentHealth - currentDamage, 0);
         UpdateHealthBarOnAttack?.Invoke(CurrentHealth, MaxHealth);
+        if (CurrentHealth <= 0)
+        {
+            GameManager.Instance.playerState.characterData.UpdateExp(characterData.provideExp);
+        }
     }
 
     private int CurrentDamage()

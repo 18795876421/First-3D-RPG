@@ -16,3 +16,9 @@ MonoBehaviour:
   currentHealth: 200
   baseDefence: 3
   currentDefence: 3
+  provideExp: 50
+  currentExp: 0
+  levelUpExp: 0
+  currentLevel: 0
+  maxLevel: 0
+  levelCoefficient: 0
