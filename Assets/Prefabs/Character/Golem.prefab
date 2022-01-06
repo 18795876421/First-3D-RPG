@@ -644,6 +644,7 @@ GameObject:
   - component: {fileID: 171027191}
   - component: {fileID: 171027192}
   - component: {fileID: 171027193}
+  - component: {fileID: 7005596344214504880}
   m_Layer: 0
   m_Name: Golem
   m_TagString: Enemy
@@ -664,6 +665,7 @@ Transform:
   m_Children:
   - {fileID: 908249271800414914}
   - {fileID: 908249273272296418}
+  - {fileID: 8343012914770027276}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -183.674, z: 0}
@@ -756,6 +758,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &7005596344214504880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908249273459143829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9054ea102c2ad07449c8f0b54af154d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBarPrefab: {fileID: 801273766094417053, guid: d066411a795b5394a935c386a0ac5edf, type: 3}
+  barPoint: {fileID: 8343012914770027276}
+  alwaysVisible: 0
+  visibleTime: 6
 --- !u!1 &908249273487804220
 GameObject:
   m_ObjectHideFlags: 0
@@ -847,4 +865,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 908249273311398288}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5066569792377004854
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8343012914770027276}
+  m_Layer: 0
+  m_Name: HealthBar Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8343012914770027276
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5066569792377004854}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 908249273459143831}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

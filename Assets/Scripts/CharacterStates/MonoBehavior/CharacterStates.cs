@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterStates : MonoBehaviour
 {
+    public event Action<int, int> UpdateHealthBarOnAttack;
     public CharacterData_SO templateData;  //模板数据
     public CharacterData_SO characterData;  //人物数据
     public AttackData_SO attackData;  //攻击数据
@@ -55,6 +57,7 @@ public class CharacterStates : MonoBehaviour
             defener.GetComponent<Animator>().SetTrigger("Hit");
         }
         //TODO:更新UI
+        UpdateHealthBarOnAttack?.Invoke(CurrentHealth, MaxHealth);
         //判断死亡
         //TODO:经验值
     }
@@ -63,11 +66,12 @@ public class CharacterStates : MonoBehaviour
     {
         int currentDamage = Mathf.Max(damage - defener.CurretnDefence, 1);
         CurrentHealth = Mathf.Max(CurrentHealth - currentDamage, 0);
+        UpdateHealthBarOnAttack?.Invoke(CurrentHealth, MaxHealth);
     }
 
     private int CurrentDamage()
     {
-        int coreDamage = Random.Range(attackData.minDamage, attackData.maxDamage);
+        int coreDamage = UnityEngine.Random.Range(attackData.minDamage, attackData.maxDamage);
         if (isCritical)
         {
             coreDamage *= (int)attackData.criticalMultiplier;

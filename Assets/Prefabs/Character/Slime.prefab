@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 151622939658216626}
   - component: {fileID: 151622939658216625}
   - component: {fileID: 1758181622}
+  - component: {fileID: 5965586867627778501}
   m_Layer: 7
   m_Name: Slime
   m_TagString: Enemy
@@ -66,6 +67,7 @@ Transform:
   m_Children:
   - {fileID: 150124044747904961}
   - {fileID: 147354821379562721}
+  - {fileID: 2789480239676956323}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -113,7 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5cd4a03a2875e64a81fffa272a5b939, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPatrol: 0
+  isPatrol: 1
   sightRadius: 6
   patrolRadius: 8
   patrolInterval: 2
@@ -155,6 +157,22 @@ MonoBehaviour:
   characterData: {fileID: 0}
   attackData: {fileID: 11400000, guid: 1b75ad5c1527b7743a5bbc92301dec33, type: 2}
   isCritical: 0
+--- !u!114 &5965586867627778501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151279394568220443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9054ea102c2ad07449c8f0b54af154d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBarPrefab: {fileID: 801273766094417053, guid: d066411a795b5394a935c386a0ac5edf, type: 3}
+  barPoint: {fileID: 2789480239676956323}
+  alwaysVisible: 0
+  visibleTime: 3
 --- !u!1 &152093093214065099
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,3 +543,33 @@ Transform:
   m_Father: {fileID: 149878136252244105}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 55.94504, y: 90, z: 0}
+--- !u!1 &7728947822191912601
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2789480239676956323}
+  m_Layer: 0
+  m_Name: HealthBar Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2789480239676956323
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7728947822191912601}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 147482676585840951}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
