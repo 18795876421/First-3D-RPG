@@ -22,12 +22,23 @@ public class PlayerController : MonoBehaviour
         stopDistance = agent.stoppingDistance;
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        //在 OnMouseClicked 事件中注册 方法
+        //当人物出现的时候,在 OnMouseClicked 事件中注册 方法
         MouseManager.Instance.OnMouseClicked += MoveToTarget;
         MouseManager.Instance.OnEnemyClicked += EventAttact;
+    }
+
+    private void Start()
+    {
         GameManager.Instance.RigisterPlayer(characterStates);
+    }
+
+    private void OnDisable()
+    {
+        //当人物消失，取消订阅
+        MouseManager.Instance.OnMouseClicked -= MoveToTarget;
+        MouseManager.Instance.OnEnemyClicked -= EventAttact;
     }
 
     private void Update()
