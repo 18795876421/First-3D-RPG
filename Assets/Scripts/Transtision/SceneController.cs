@@ -32,6 +32,8 @@ public class SceneController : Singleton<SceneController>
     //传送
     IEnumerator Transition(string sceneName, TransitionDestination.DestinationTag destinationTag)
     {
+        //保存数据
+        SaveManager.Instance.SavePlayerData();
         //判断是否同场景传送
         if (SceneManager.GetActiveScene().name == sceneName)
         {
@@ -46,6 +48,8 @@ public class SceneController : Singleton<SceneController>
         {
             yield return SceneManager.LoadSceneAsync(sceneName);
             yield return Instantiate(playerPrefab, GetDestination(destinationTag).transform.position, GetDestination(destinationTag).transform.rotation);
+            //读取数据
+            SaveManager.Instance.LoadPlayerData();
             yield break;
         }
     }
@@ -63,4 +67,34 @@ public class SceneController : Singleton<SceneController>
         }
         return null;
     }
+
+    //加载场景
+    IEnumerator LoadScene(string sceneName)
+    {
+        yield return SceneManager.LoadSceneAsync(sceneName);
+        yield return Instantiate(playerPrefab, GameManager.Instance.GetEntrance().position, GameManager.Instance.GetEntrance().rotation);
+        yield break;
+    }
+
+    public void LoadFirstScene()
+    {
+        StartCoroutine(LoadScene("Scene1"));
+    }
+
+    public void TransitionToLoadGame()
+    {
+        StartCoroutine(LoadScene(SaveManager.Instance.SceneName));
+    }
+
+    IEnumerator LoadMenul()
+    {
+        yield return SceneManager.LoadSceneAsync("Menul");
+        yield break;
+    }
+
+    public void TransitionToMenul()
+    {
+        StartCoroutine(LoadMenul());
+    }
+
 }

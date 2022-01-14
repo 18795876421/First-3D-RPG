@@ -27,11 +27,12 @@ public class PlayerController : MonoBehaviour
         //当人物出现的时候,在 OnMouseClicked 事件中注册 方法
         MouseManager.Instance.OnMouseClicked += MoveToTarget;
         MouseManager.Instance.OnEnemyClicked += EventAttact;
+        GameManager.Instance.RigisterPlayer(characterStates);
     }
 
     private void Start()
     {
-        GameManager.Instance.RigisterPlayer(characterStates);
+        SaveManager.Instance.LoadPlayerData();
     }
 
     private void OnDisable()
