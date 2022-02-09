@@ -6,7 +6,7 @@ public class SaveManager : Singleton<SaveManager>
 {
     string sceneName = "sceneName";
     public string SceneName { get { return PlayerPrefs.GetString(sceneName); } }
-    private void Awake()
+    override protected void Awake()
     {
         base.Awake();
         DontDestroyOnLoad(this);

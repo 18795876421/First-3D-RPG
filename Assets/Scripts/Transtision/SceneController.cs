@@ -9,8 +9,9 @@ public class SceneController : Singleton<SceneController>
     GameObject player;
     NavMeshAgent playerAgent;
     public GameObject playerPrefab;
+    public SceneFader sceneFaderPrefasb;
 
-    private void Awake()
+    override protected void Awake()
     {
         base.Awake();
         DontDestroyOnLoad(this);
@@ -71,8 +72,11 @@ public class SceneController : Singleton<SceneController>
     //加载场景
     IEnumerator LoadScene(string sceneName)
     {
+        SceneFader fader = Instantiate(sceneFaderPrefasb);
+        yield return StartCoroutine(fader.FadeOut());
         yield return SceneManager.LoadSceneAsync(sceneName);
         yield return Instantiate(playerPrefab, GameManager.Instance.GetEntrance().position, GameManager.Instance.GetEntrance().rotation);
+        yield return StartCoroutine(fader.FadeIn());
         yield break;
     }
 

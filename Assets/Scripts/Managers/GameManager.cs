@@ -9,7 +9,7 @@ public class GameManager : Singleton<GameManager>
     List<IEndGameObserver> endGameObservers = new List<IEndGameObserver>();
     private CinemachineFreeLook followCamera;
 
-    private void Awake()
+    override protected void Awake()
     {
         base.Awake();
         DontDestroyOnLoad(this);
